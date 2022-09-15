@@ -36,7 +36,7 @@ const createIntern = async function (req, res) {
             return res.status(400).send({ status: false, msg: "Please provide Mobile Number. it's mandatory" })
         }
         if (!mobileValid.test(data.mobile)) {
-            return res.status(400).send({ status: false, msg: "please provide valid mobile Number" })
+            return res.status(400).send({ status: false, msg: "please provide valid mobile Number 10-digit" })
         }
         let studentemail = await InternModel.findOne({ email: data.email })
         if (studentemail) {
