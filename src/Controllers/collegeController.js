@@ -45,13 +45,11 @@ const getcollegeDetails = async function (req, res) {
         if (!collegeName) {
             return res.status(400).send({ status: false, msg: "please Enter college name" })
         }
-        collegeName = collegeName.toLowerCase()
-        collegeName = collegeName.toUpperCase()
-        let findcollege = await collegeModel.findOne({ name: collegeName })
+        let findcollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
         if (!findcollege) {
             return res.status(404).send({ status: false, msg: "don't open Internships in this college" })
         }
-        let studentdetails = await InternModel.find({ collegeId: findcollege._id }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+        let studentdetails = await InternModel.find({ collegeId: findcollege._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
         if (studentdetails.length === 0) {
             studentdetails.push("don't have any intern in this college")
         }

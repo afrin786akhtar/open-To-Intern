@@ -38,11 +38,6 @@ const createIntern = async function (req, res) {
         if (!mobileValid.test(data.mobile)) {
             return res.status(400).send({ status: false, msg: "please provide valid mobile Number" })
         }
-        if (!isValid(data.collegeName)) {
-            return res.status(400).send({ status: false, msg: "please provide college Name" })
-        }else{
-            data.collegeName = data.collegeName.trim()
-        }
         let studentemail = await InternModel.findOne({ email: data.email })
         if (studentemail) {
             if (studentemail.email) {
@@ -55,7 +50,12 @@ const createIntern = async function (req, res) {
                 return res.status(400).send({ status: false, msg: "this mobile Number is already exist" })
             }
         }
-
+        if (!isValid(data.collegeName)) {
+            return res.status(400).send({ status: false, msg: "please provide college Name" })
+        }else{
+            data.collegeName = data.collegeName.trim()
+        }
+        
         const colleges = await CollegeModel.findOne({ name: data.collegeName })
         if (!colleges) {
             return res.status(400).send({ status: false, msg: "this college is not available" })
