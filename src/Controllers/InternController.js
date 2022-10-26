@@ -10,6 +10,7 @@ const isValid = function (value) {
 
 const createIntern = async function (req, res) {
     try {
+        res.setHeader('Access-Control-Allow-Origin','*')
         let data = req.body;
         let alphabets = /^[A-Z][A-Z a-z]{3,20}$/
         let emailValid = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/

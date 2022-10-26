@@ -47,6 +47,7 @@ const createCollege = async function (req, res) {
 
 const getcollegeDetails = async function (req, res) {
     try {
+        res.setHeader('Access-Control-Allow-Origin','*')
         let collegeName = req.query.collegeName
         if (!collegeName) {
             return res.status(400).send({ status: false, msg: "please Enter college name" })
@@ -73,6 +74,5 @@ const getcollegeDetails = async function (req, res) {
 }
 
 
-module.exports.getcollegeDetails = getcollegeDetails
-module.exports.createCollege = createCollege
+module.exports = {getcollegeDetails, createCollege}
 
